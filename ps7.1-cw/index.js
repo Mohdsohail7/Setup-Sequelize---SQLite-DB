@@ -7,32 +7,64 @@ const app = express();
 
 app.use(express.json());
 
+let classrooms = [
+  { name: 'Mathematics' },
+  { name: 'Physics' },
+  { name: 'Chemistry' },
+];
+
 let studentData = [
-  { name: 'Vikram Patel', email: 'vikram@example.com', age: 22 },
-  { name: 'Aisha Khan', email: 'aisha@example.com', age: 25 },
-  // Attempt to add a duplicate email to test the unique constraint
-  { name: 'Ravi Singh', email: 'vikram@example.com', age: 23 }
-]
+  {
+    name: 'Rahul Sharma',
+    email: 'rahul.sharma@example.com',
+    age: 21,
+    ClassroomId: 1,
+  },
+  {
+    name: 'Priya Singh',
+    email: 'priya.singh@example.com',
+    age: 22,
+    ClassroomId: 2,
+  },
+  {
+    name: 'Amit Verma',
+    email: 'amit.verma@example.com',
+    age: 20,
+    ClassroomId: 1,
+  },
+  {
+    name: 'Sonal Kaur',
+    email: 'sonal.kaur@example.com',
+    age: 19,
+    ClassroomId: 3,
+  },
+];
 
 app.get('/seed_db', async (req, res) => {
   try {
     await sequelize.sync({ force: true });
     // create classroom 
-    let classroom = await Classroom.create({
-      name: "Mathematics"
-    });
+    // let classroom = await Classroom.create({
+    //   name: "Mathematics"
+    // });
 
-    // single student add in classroom
-    let student = await Student.create({
-      name: "Heena sayyed",
-      email: "heena@gmail.com",
-      age: 26,
-      classroomId: classroom.id
-    });
+    // // single student add in classroom
+    // let student = await Student.create({
+    //   name: "Heena sayyed",
+    //   email: "heena@gmail.com",
+    //   age: 26,
+    //   classroomId: classroom.id
+    // });
+
+    // seed multiple classroom
+    await Classroom.bulkCreate(classrooms);
+
+    // multiple student added in different classroom
+    await Student.bulkCreate(studentData);
 
     return res
       .status(200)
-      .json({ message: 'Database seeded with foreign key relationship!.',student: student });
+      .json({ message: 'Database seeded multiple records with foreign key relationship!.'});
   } catch (error) {
     return res.status(500).json({ message: "Error sending from database.", error: error.message });
   }
