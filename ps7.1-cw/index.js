@@ -6,7 +6,7 @@ const app = express();
 
 app.use(express.json());
 
-let studentData = [{ name: 'Mohd Sohail' }, { name: 'Priya Singh' }];
+let studentData = [{ name: 'Mohd shuaib', email: "shuaib@gmail.com", age: 25 }, { name: 'Adil ali', email: "adil@gmail.com", age: 22 }];
 
 app.get('/seed_db', async (req, res) => {
   try {
@@ -15,7 +15,7 @@ app.get('/seed_db', async (req, res) => {
 
     return res
       .status(200)
-      .json({ message: 'Data Saved in database Successful.' });
+      .json({ message: 'Database seeded with additional records!.' });
   } catch (error) {
     return res.status(500).json({ error: 'Internal Server Error.' });
   }
