@@ -1,6 +1,7 @@
 const express = require('express');
 const Student = require('./models/students');
 const { sequelize } = require('../config/database');
+const Classroom = require('./models/classroom');
 
 const app = express();
 
@@ -16,11 +17,22 @@ let studentData = [
 app.get('/seed_db', async (req, res) => {
   try {
     await sequelize.sync({ force: true });
-    await Student.bulkCreate(studentData);
+    // create classroom 
+    let classroom = await Classroom.create({
+      name: "Mathematics"
+    });
+
+    // single student add in classroom
+    let student = await Student.create({
+      name: "Heena sayyed",
+      email: "heena@gmail.com",
+      age: 26,
+      classroomId: classroom.id
+    });
 
     return res
       .status(200)
-      .json({ message: 'Database seeded with additional records!.' });
+      .json({ message: 'Database seeded with foreign key relationship!.',student: student });
   } catch (error) {
     return res.status(500).json({ message: "Error sending from database.", error: error.message });
   }
