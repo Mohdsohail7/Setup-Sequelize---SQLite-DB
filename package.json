@@ -2,7 +2,8 @@
   "name": "node-starter",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "node ps7.1-cw/index.js",
+    "seed": "node ps7.3/seed.js"
   },
   "dependencies": {
     "express": "^4.21.2",
