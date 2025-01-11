@@ -8,9 +8,9 @@ const app = express();
 app.use(express.json());
 
 const books = [
-  { name: 'The Great Gatsby' },
-  { name: 'To Kill a Mockingbird' },
-  { name: '1984' },
+  { name: 'The Great Gatsby', author: "F. Scott Fitzgerald", release_year: "1925" },
+  { name: 'To Kill a Mockingbird', author: "Harper Lee", release_year: "1960" },
+  { name: '1984', author: "George Orwell", release_year: "1949" },
 ];
 
 const movies = [{ name: 'Inception' }, { name: 'Iron Man' }, { name: 'Thor' }];
@@ -22,11 +22,11 @@ app.get('/seed_db', async (req, res) => {
     await Book.bulkCreate(books);
 
     // question-2
-    await Movie.bulkCreate(movies);
+    // await Movie.bulkCreate(movies);
 
     return res
       .status(200)
-      .json({ message: 'Data Saved in database Successful.' });
+      .json({ message: 'Data Saved in database with new records Successful.' });
   } catch (error) {
     return res.status(500).json({ error: 'Internal Server Error.' });
   }
