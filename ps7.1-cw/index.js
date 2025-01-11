@@ -1,6 +1,6 @@
 const express = require('express');
 const Student = require('./models/students');
-const { sequelize } = require('./config/database.js');
+const { sequelize } = require('../config/database');
 
 const app = express();
 

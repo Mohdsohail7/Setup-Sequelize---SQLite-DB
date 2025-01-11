@@ -1,6 +1,6 @@
 const express = require('express');
 const Book = require('./models/book.model.js');
-const { sequelize } = require('./config/database.js');
+const { sequelize } = require('../config/database.js');
 const Movie = require('./models/movie.model');
 
 const app = express();
@@ -36,7 +36,7 @@ app.get('/seed_db', async (req, res) => {
 app.post('/newBook', async (req, res) => {
   try {
     const bookName = req.body.name;
-    await Student.create({
+    await Book.create({
       name: bookName,
     });
 
@@ -59,7 +59,7 @@ app.post('/newBook', async (req, res) => {
 app.post('/newMovie', async (req, res) => {
   try {
     const movieName = req.body.name;
-    await Student.create({
+    await Movie.create({
       name: movieName,
     });
 
