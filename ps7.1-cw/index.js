@@ -6,7 +6,12 @@ const app = express();
 
 app.use(express.json());
 
-let studentData = [{ name: 'Mohd shuaib', email: "shuaib@gmail.com", age: 25 }, { name: 'Adil ali', email: "adil@gmail.com", age: 22 }];
+let studentData = [
+  { name: 'Vikram Patel', email: 'vikram@example.com', age: 22 },
+  { name: 'Aisha Khan', email: 'aisha@example.com', age: 25 },
+  // Attempt to add a duplicate email to test the unique constraint
+  { name: 'Ravi Singh', email: 'vikram@example.com', age: 23 }
+]
 
 app.get('/seed_db', async (req, res) => {
   try {
@@ -17,7 +22,7 @@ app.get('/seed_db', async (req, res) => {
       .status(200)
       .json({ message: 'Database seeded with additional records!.' });
   } catch (error) {
-    return res.status(500).json({ error: 'Internal Server Error.' });
+    return res.status(500).json({ message: "Error sending from database.", error: error.message });
   }
 });
 

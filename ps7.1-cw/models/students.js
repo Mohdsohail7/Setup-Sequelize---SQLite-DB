@@ -7,10 +7,13 @@ const Student = sequelize.define('Student', {
   },
   email: {
     type: DataTypes.STRING,
+    allowNull: false,
+    unique: true
   },
   age: {
     type: DataTypes.INTEGER,
     defaultValue: 18,  // Set default age to 18 if none is provided
+    allowNull: false
   },
 });
 module.exports = Student;
